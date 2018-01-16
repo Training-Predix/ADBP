@@ -1,0 +1,27 @@
+applications:
+  - name: <yourname>-connectedcars-handler   # update with your name
+    buildpack: https://github.com/cloudfoundry/java-buildpack.git#v3.14
+    path: target/connectedcars-handler-0.0.1.war
+    services:
+        - <yourname>-uaa                   # update with your name
+        - <yourname>-timeseries            # update with your name
+
+env:
+    SPRING_PROFILES_ACTIVE : cloud  
+    logging_level_root: INFO
+    logging_level_org_springframework: INFO
+    logging_level_com_ge_predix_solsvc: DEBUG
+    predix_timeseries_wspool_maxIdle: 5
+    predix_timeseries_wspool_maxActive: 5
+    
+    # update the following with your info:
+    predix_uaa_name: <yourname>-uaa
+    predix_timeseries_name: <yourname>-timeseries
+    
+    # get the base64 encoded value using the following command:
+    # --- Mac or Linux: 
+    # echo -n <your_client_id>:<your_client_secret> | base64
+    # --- Windows: 
+    # powershell "[convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes(\"<your_client_id>:<your_client_secret>\"))"
+    predix_oauth_clientId: base64 <your_client_id>:<your_client_secret>
+    connectedcars_simulator_url: https://<your_connectedcars_simulator_url>
