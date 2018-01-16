@@ -1,0 +1,10 @@
+applications:
+  - name: <yourname>-connectedcars-simulator # update with your name
+    buildpack: https://github.com/cloudfoundry/java-buildpack.git#v3.14
+    path: target/connectedcars-simulator-0.0.1.war
+    memory: 512M
+    disk_quota: 1G
+    timeout: 180
+    
+env:
+    SPRING_PROFILES_ACTIVE : cloud
