@@ -1,0 +1,11 @@
+private ApiInfo metaData() {
+	ApiInfo apiInfo = new ApiInfo(
+			"Connected Cars Simulator REST API",
+			"Spring Boot REST API for Connected Cars Simulator",
+			"1.0",
+			"Terms of service",
+			new Contact("<your-name>", "https://predix.io/", "<your-email>"),
+			"Apache License Version 2.0",
+			"https://www.apache.org/licenses/LICENSE-2.0");
+	return apiInfo;
+}
