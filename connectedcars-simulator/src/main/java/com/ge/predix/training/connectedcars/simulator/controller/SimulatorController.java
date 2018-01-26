@@ -10,6 +10,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -54,6 +55,7 @@ public class SimulatorController {
 		}
 	}
 	
+	@CrossOrigin
 	@RequestMapping(value = "/simulator", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
 	public String generateSimulatedData() {
@@ -75,6 +77,7 @@ public class SimulatorController {
 		return jsonData;
 	}
 	
+	@CrossOrigin
 	@RequestMapping(value = "/status", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
 	public String status() {
