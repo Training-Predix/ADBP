@@ -5,6 +5,8 @@ applications:
     memory: 512M
     disk_quota: 1G
     timeout: 180
-    
+    services:
+      - <your-eureka-server-cups-name>       # update with your name
 env:
     SPRING_PROFILES_ACTIVE : cloud
+    EUREKA: <your-eureka-server-cups-name>   # update with your name
