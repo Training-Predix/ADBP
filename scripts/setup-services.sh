@@ -40,7 +40,7 @@ loginCf()
 checkPrereq()
 {
   {
-	echo ""
+    echo ""
     echo "Checking prerequisites ..."
     verifyCommand 'cf -v'
     verifyCommand 'uaac -v'
@@ -108,12 +108,12 @@ getUAAEndpoint() {
 }
 
 createClient() {
-		echo ""
-		echo "Creating client..."
-		uaac target $uaa_uri --skip-ssl-validation && uaac token client get admin -s admin_secret || sadKitty
-		echo ""
-		clientname=$prefix-client
-		uaac client add $clientname -s secret --authorized_grant_types "authorization_code client_credentials password refresh_token" --autoapprove "openid scim.me" --authorities "clients.read clients.write scim.read scim.write" --redirect_uri "http://localhost:5000"
+	echo ""
+	echo "Creating client..."
+	uaac target $uaa_uri --skip-ssl-validation && uaac token client get admin -s admin_secret || sadKitty
+	echo ""
+	clientname=$prefix-client
+	uaac client add $clientname -s secret --authorized_grant_types "authorization_code client_credentials password refresh_token" --autoapprove "openid scim.me" --authorities "clients.read clients.write scim.read scim.write" --redirect_uri "http://localhost:5000"
 }
 
 createAsset() {
@@ -161,7 +161,7 @@ createAssetModel() {
 	sleep 10
 	token_uri=$uaa_uri/oauth/token
 	tokenJson=`curl "$token_uri" -H 'Pragma: no-cache' -H 'content-type: application/x-www-form-urlencoded' -H 'Cache-Control: no-cache' -H 'authorization: Basic '$auth'' --data 'client_id='$clientname'&grant_type=client_credentials'` || sadKitty
-  echo ""
+  	echo ""
 	echo "Getting Token..."
 	token=`echo $tokenJson|egrep -o '"access_token":"[^ ]+","t'|sed s/\"access_token\":\"//|sed s/\",\"t//`
 
@@ -270,7 +270,7 @@ App User Password          :  APP_user18
 EOF
  echo ""
  echo "Your services are now set up!"
- echo "A adbp-environment.txt file with all your environment details is created in the scripts directory"
+ echo "An adbp-environment.txt file with all your environment details is created in the scripts directory"
 }
 
 main "$@"
