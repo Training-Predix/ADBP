@@ -23,5 +23,5 @@ env:
     # echo -n <your_client_id>:<your_client_secret> | base64
     # --- Windows: 
     # powershell "[convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes(\"<your_client_id>:<your_client_secret>\"))"
-    predix_oauth_clientId: base64 <your_client_id>:<your_client_secret>
+    predix_oauth_clientId: <base64 <your_client_id>:<your_client_secret>>
     connectedcars_simulator_url: https://<your_connectedcars_simulator_url>
