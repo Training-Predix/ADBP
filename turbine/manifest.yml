@@ -1,0 +1,11 @@
+applications:
+  - name: <your-name>-turbine # update with your name
+    buildpack: https://github.com/cloudfoundry/java-buildpack.git#v3.14
+    path: target/turbine-0.0.1.jar
+    memory: 512M
+    disk_quota: 1G
+    timeout: 180
+    services:
+        - <your-name>-eureka-cups                   # update with your name
+    env:
+      SPRING_PROFILES_ACTIVE: cloud

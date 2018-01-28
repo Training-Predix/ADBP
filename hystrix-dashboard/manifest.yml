@@ -1,0 +1,9 @@
+applications:
+  - name: <your-name>-hystrix-dashboard # update with your name
+    buildpack: https://github.com/cloudfoundry/java-buildpack.git#v3.14
+    path: target/hystrix-dashboard-0.0.1.jar
+    memory: 512M
+    disk_quota: 1G
+    timeout: 180
+    env:
+      SPRING_PROFILES_ACTIVE: cloud
