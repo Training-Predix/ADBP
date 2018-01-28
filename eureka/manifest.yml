@@ -1,0 +1,7 @@
+applications:
+  - name: <your-name>-eureka # update with your name
+    buildpack: https://github.com/cloudfoundry/java-buildpack.git#v3.14
+    path: target/eureka-0.0.1.jar
+    memory: 512M
+    disk_quota: 1G
+    timeout: 180
