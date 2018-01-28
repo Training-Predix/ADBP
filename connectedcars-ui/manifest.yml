@@ -1,0 +1,24 @@
+---
+applications:
+  - name: <your-name>-connectedcars-ui
+    memory: 1G
+    buildpack: nodejs_buildpack
+    command: node server/app.js
+    path: dist
+services:
+  - <your-name>-uaa
+  - <your-name>-asset
+env:
+    node_env: production
+    uaa_service_label : predix-uaa
+    # Add these values for authentication in the cloud
+    
+    # get the base64 encoded value using the following command:
+    # --- Mac or Linux: 
+    # echo -n <your_client_id>:<your_client_secret> | base64
+    # --- Windows: 
+    # powershell "[convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes(\"<your_client_id>:<your_client_secret>\"))"
+    base64ClientCredential: <base64 <your_client_id>:<your_client_secret>>
+    loginBase64ClientCredential: <base64 <your_client_id>:<your_client_secret>>
+    
+    simulatorURL: https://<your_connectedcars_simulator_url>

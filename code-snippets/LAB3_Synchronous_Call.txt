@@ -1,0 +1,23 @@
+  /*
+   * Synchronous Call
+   */
+  getData = () => {
+    this.setState({
+      loading: true,
+      loadingText: 'Getting Cars...'
+    });
+    axios.get('/api/predix-asset/connected_car')
+    .then(res => {
+      this.setState({
+        connectedCars: res.data,
+        loadingText: 'Locating Cars...'
+      });
+      return res.data;
+    })
+    .then(cars => {
+      axios.get('/api/predix-asset/location')
+      .then(locations => {
+        this.combineResponses(cars, locations.data)
+      })
+    })
+  }

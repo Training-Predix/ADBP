@@ -1,0 +1,9 @@
+@Scheduled(fixedDelay=3000)
+	@HystrixCommand(fallbackMethod = "fallbackSimulatorData", commandProperties = {
+	        @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "30000"),
+	        @HystrixProperty(name = "circuitBreaker.requestVolumeThreshold", value = "5"),
+	        @HystrixProperty(name = "circuitBreaker.errorThresholdPercentage", value = "45"),
+	        @HystrixProperty(name = "circuitBreaker.sleepWindowInMilliseconds", value = "60000"),
+	        @HystrixProperty(name = "metrics.rollingStats.timeInMilliseconds", value = "180000") }, threadPoolProperties = {
+	        @HystrixProperty(name = "coreSize", value = "30"),
+	        @HystrixProperty(name = "metrics.rollingStats.timeInMilliseconds", value = "180000") })

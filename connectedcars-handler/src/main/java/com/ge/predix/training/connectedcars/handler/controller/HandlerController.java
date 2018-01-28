@@ -37,7 +37,7 @@ public class HandlerController {
 	@Autowired
 	private TimeSeriesService timeSeriesService;
 	
-	@Scheduled(fixedDelay=4000)
+	@Scheduled(fixedDelay=3000)
 	public void parseSimulatorData() {
 		logger.debug("-------------------------------- parseSimulatorData --------------------------------");
 		
@@ -67,7 +67,7 @@ public class HandlerController {
 			// Call ingest method
 			timeSeriesService.pushDatatoTimeSeries(ccList);
 		} catch (RestClientException e) {
-			logger.error("Error getting JSON response from simulator REST service. Make sure the simulator app is running.");
+			
 		}
 	}
 	

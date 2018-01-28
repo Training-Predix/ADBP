@@ -1,0 +1,60 @@
+* {
+  font-family: 'PT Sans';
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: #24343e;
+}
+
+.flex {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.view-heading {
+  justify-content: space-between;
+  margin-top: 1em;
+  margin-left: 1em;
+  color: #b6c3cd;
+  font-family: 'PT Sans';
+}
+
+.container {
+  margin: 0 1em;
+}
+
+.px-gauge-0 {
+  float: left;
+  width: 20em;
+  display: table-cell;
+  height: 11em;
+  margin-bottom: 10em;
+  margin-right: 2em;
+}
+
+.kpi {
+  margin-left: 0em;
+  width: 100%;
+}
+
+.spinner {
+  text-align: center;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top:0;
+  bottom:0;
+  z-index: 2;
+  background: white;
+  opacity: 0.8;
+  display: flex;
+}
+
+px-alert-message {
+  z-index: 2;
+  float: right;
+  margin-right: 1em;
+  margin-top: -5em;
+}

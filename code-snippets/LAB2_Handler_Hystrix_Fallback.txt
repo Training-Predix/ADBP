@@ -1,0 +1,3 @@
+public void fallbackSimulatorData() {
+	logger.error("Error getting JSON response from simulator REST service. Make sure the simulator app is running.");
+}
