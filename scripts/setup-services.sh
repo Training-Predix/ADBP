@@ -268,9 +268,9 @@ Client Name                :  "$clientname"
 Client Secret              :  secret
 Base64ClientCredential	   :  "$base64encoded"
 Asset Name                 :  "$assetname"
-Asset Zone Id		   :  "$predix_asset_zone_id"
+Asset Zone Id		   				 :  "$predix_asset_zone_id"
 Timeseries Name            :  "$timeseriesname"
-Timeseries Zone Id	   :  "$timeseries_zone"
+Timeseries Zone Id	   		 :  "$timeseries_zone"
 Blobstore Name             :  "$blobstorename"
 App Admin User Name        :  app_admin
 App Admin User Password    :  APP_admin18
