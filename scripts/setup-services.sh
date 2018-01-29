@@ -14,8 +14,8 @@ main() {
 	# disabling cf trace mode.
 	export CF_TRACE=false
 	welcome
-	loginCf
 	checkPrereq
+	loginCf
 	deployingApp
 	createUAA
 	getUAAEndpoint
@@ -23,18 +23,12 @@ main() {
 	createAsset
 	createTimeseries
 	createBlobstore
- 	updateClient
+  updateClient
 	createAssetModel
 	createUsers
 	createGroups
 	assignUsersToGroups
 	output
-}
-
-loginCf()
-{
-   cf login -a https://api.system.aws-usw02-pr.ice.predix.io -u student10 -p 'PrediX20!7' -o Predix-Training -s Training5 || sadKitty
-
 }
 
 checkPrereq()
@@ -68,8 +62,20 @@ verifyCommand()
   fi
 }
 
+loginCf()
+{
+	read -p "Enter the Org name: " org_name
+	read -p "Enter the Space name: " space_name
+	read -p "Enter the Username: " user_name
+	read -s -p "Enter the Password: " user_password
+	echo -e "\n\nLogging into Cloud Foundry..."
+	cf login -a https://api.system.aws-usw02-pr.ice.predix.io -u $user_name -p $user_password -o $org_name -s $space_name || sadKitty
+   #cf login -a https://api.system.aws-usw02-pr.ice.predix.io -u student10 -p 'PrediX20!7' -o Predix-Training -s Training5 || sadKitty
+}
+
 deployingApp() {
-	read -p "Enter a prefix for the services name:" prefix
+	echo -e "\n"
+	read -p "Enter a prefix for the services name: " prefix
 	cd ../hello-predix/
 	app_name=$prefix-hello-predix
 	echo $app_name
@@ -114,6 +120,7 @@ createClient() {
 	echo ""
 	clientname=$prefix-client
 	uaac client add $clientname -s secret --authorized_grant_types "authorization_code client_credentials password refresh_token" --autoapprove "openid scim.me" --authorities "clients.read clients.write scim.read scim.write" --redirect_uri "http://localhost:5000"
+	base64encoded=`echo -n $clientname:secret|base64`
 }
 
 createAsset() {
@@ -169,15 +176,15 @@ createAssetModel() {
 	sleep 1
 	curl 'https://predix-asset.run.aws-usw02-pr.ice.predix.io/connected_car' -X POST -H 'predix-zone-id: '$predix_asset_zone_id'' -H 'authorization: '$token'' -H 'content-type: application/json' --data-binary '[{"uri":"/connected_car/cc1","createdTimestamp":"1499884031000","vin":"1HD1DGL17SY682612","make":"Ford","model":"Fusion","color":"Ingot Silver","odometerMileage":{"value":24532,"unit":"mi"},"fuelTankCapacity":{"value":16.5,"unit":"gal"},"location":"/location/sanramon","lastServiceDate":"06-20-2017","sensors":[{"uri":"/sensor/cc1_outside_temperature","name":"cc1_outside_temperature"},{"uri":"/sensor/cc1_speed","name":"cc1_speed"},{"uri":"/sensor/cc1_parking_brake_status","name":"cc1_parking_brake_status"},{"uri":"/sensor/cc1_gas_cap_status","name":"cc1_gas_cap_status"},{"uri":"/sensor/cc1_window_status","name":"cc1_window_status"},{"uri":"/sensor/cc1_engine_temperature","name":"cc1_engine_temperature"},{"uri":"/sensor/cc1_fuel_level","name":"cc1_fuel_level"},{"uri":"/sensor/cc1_tire_pressure_level","name":"cc1_tire_pressure_level"}]},{"uri":"/connected_car/cc2","createdTimestamp":"1499884031000","vin":"1FTEX1EP8FFA81722","make":"Hyundai","model":"Sonata","color":"Scarlet Red","odometerMileage":{"value":61051,"unit":"mi"},"fuelTankCapacity":{"value":18.5,"unit":"gal"},"location":"/location/chicago","lastServiceDate":"06-20-2017","sensors":[{"uri":"/sensor/cc2_outside_temperature","name":"cc2_outside_temperature"},{"uri":"/sensor/cc2_speed","name":"cc2_speed"},{"uri":"/sensor/cc2_parking_brake_status","name":"cc2_parking_brake_status"},{"uri":"/sensor/cc2_gas_cap_status","name":"cc2_gas_cap_status"},{"uri":"/sensor/cc2_window_status","name":"cc2_window_status"},{"uri":"/sensor/cc2_engine_temperature","name":"cc2_engine_temperature"},{"uri":"/sensor/cc2_fuel_level","name":"cc2_fuel_level"},{"uri":"/sensor/cc2_tire_pressure_level","name":"cc2_tire_pressure_level"}]},{"uri":"/connected_car/cc3","createdTimestamp":"1499884031000","vin":"WAUKFAFLXAA030811","make":"Toyota","model":"Prius","color":"Sea Glass","odometerMileage":{"value":121457,"unit":"mi"},"fuelTankCapacity":{"value":11.3,"unit":"gal"},"location":"/location/newyorkcity","lastServiceDate":"06-20-2017","sensors":[{"uri":"/sensor/cc3_outside_temperature","name":"cc3_outside_temperature"},{"uri":"/sensor/cc3_speed","name":"cc3_speed"},{"uri":"/sensor/cc3_parking_brake_status","name":"cc3_parking_brake_status"},{"uri":"/sensor/cc3_gas_cap_status","name":"cc3_gas_cap_status"},{"uri":"/sensor/cc3_window_status","name":"cc3_window_status"},{"uri":"/sensor/cc3_engine_temperature","name":"cc3_engine_temperature"},{"uri":"/sensor/cc3_fuel_level","name":"cc3_fuel_level"},{"uri":"/sensor/cc3_tire_pressure_level","name":"cc3_tire_pressure_level"}]},{"uri":"/connected_car/cc4","createdTimestamp":"1499884031000","vin":"4VZBN24982C096054","make":"Mercedes-Benz","model":"CLA","color":"Night Black","odometerMileage":{"value":2806,"unit":"mi"},"fuelTankCapacity":{"value":14.8,"unit":"gal"},"location":"/location/austin","lastServiceDate":"06-20-2017","sensors":[{"uri":"/sensor/cc4_outside_temperature","name":"cc4_outside_temperature"},{"uri":"/sensor/cc4_speed","name":"cc4_speed"},{"uri":"/sensor/cc4_parking_brake_status","name":"cc4_parking_brake_status"},{"uri":"/sensor/cc4_gas_cap_status","name":"cc4_gas_cap_status"},{"uri":"/sensor/cc4_window_status","name":"cc4_window_status"},{"uri":"/sensor/cc4_engine_temperature","name":"cc4_engine_temperature"},{"uri":"/sensor/cc4_fuel_level","name":"cc4_fuel_level"},{"uri":"/sensor/cc4_tire_pressure_level","name":"cc4_tire_pressure_level"}]},{"uri":"/connected_car/cc5","createdTimestamp":"1499884031000","vin":"JW6DEL1EXTM076644","make":"Chevrolet","model":"Camaro","color":"Krypton Green","odometerMileage":{"value":39450,"unit":"mi"},"fuelTankCapacity":{"value":19,"unit":"gal"},"location":"/location/miami","lastServiceDate":"06-20-2017","sensors":[{"uri":"/sensor/cc5_outside_temperature","name":"cc5_outside_temperature"},{"uri":"/sensor/cc5_speed","name":"cc5_speed"},{"uri":"/sensor/cc5_parking_brake_status","name":"cc5_parking_brake_status"},{"uri":"/sensor/cc5_gas_cap_status","name":"cc5_gas_cap_status"},{"uri":"/sensor/cc5_window_status","name":"cc5_window_status"},{"uri":"/sensor/cc5_engine_temperature","name":"cc5_engine_temperature"},{"uri":"/sensor/cc5_fuel_level","name":"cc5_fuel_level"},{"uri":"/sensor/cc5_tire_pressure_level","name":"cc5_tire_pressure_level"}]}]' || sadKitty
 
-	sleep 2
+	sleep 3
 	echo "Ingesting Sensor data..."
 	curl 'https://predix-asset.run.aws-usw02-pr.ice.predix.io/sensor' -X POST -H 'predix-zone-id: '$predix_asset_zone_id'' -H 'authorization: Bearer '$token'' -H 'content-type: application/json' --data-binary '[{"uri":"/sensor/cc1_outside_temperature","createdTimestamp":"1499884031000","tag":"cc1_outside_temperature","unit":"F"},{"uri":"/sensor/cc1_speed","createdTimestamp":"1499884031000","tag":"cc1_speed","unit":"mph"},{"uri":"/sensor/cc1_parking_brake_status","createdTimestamp":"1499884031000","tag":"cc1_parking_brake_status","unit":""},{"uri":"/sensor/cc1_gas_cap_status","createdTimestamp":"1499884031000","tag":"cc1_gas_cap_status","unit":""},{"uri":"/sensor/cc1_window_status","createdTimestamp":"1499884031000","tag":"cc1_window_status","unit":""},{"uri":"/sensor/cc1_engine_temperature","createdTimestamp":"1499884031000","tag":"cc1_engine_temperature","unit":"F"},{"uri":"/sensor/cc1_fuel_level","createdTimestamp":"1499884031000","tag":"cc1_fuel_level","unit":"%"},{"uri":"/sensor/cc1_tire_pressure_level","createdTimestamp":"1499884031000","tag":"cc1_tire_pressure_level","unit":"%"},{"uri":"/sensor/cc2_outside_temperature","createdTimestamp":"1499884031000","tag":"cc2_outside_temperature","unit":"F"},{"uri":"/sensor/cc2_speed","createdTimestamp":"1499884031000","tag":"cc2_speed","unit":"mph"},{"uri":"/sensor/cc2_parking_brake_status","createdTimestamp":"1499884031000","tag":"cc2_parking_brake_status","unit":""},{"uri":"/sensor/cc2_gas_cap_status","createdTimestamp":"1499884031000","tag":"cc2_gas_cap_status","unit":""},{"uri":"/sensor/cc2_window_status","createdTimestamp":"1499884031000","tag":"cc2_window_status","unit":""},{"uri":"/sensor/cc2_engine_temperature","createdTimestamp":"1499884031000","tag":"cc2_engine_temperature","unit":"F"},{"uri":"/sensor/cc2_fuel_level","createdTimestamp":"1499884031000","tag":"cc2_fuel_level","unit":"%"},{"uri":"/sensor/cc2_tire_pressure_level","createdTimestamp":"1499884031000","tag":"cc2_tire_pressure_level","unit":"%"},{"uri":"/sensor/cc3_outside_temperature","createdTimestamp":"1499884031000","tag":"cc3_outside_temperature","unit":"F"},{"uri":"/sensor/cc3_speed","createdTimestamp":"1499884031000","tag":"cc3_speed","unit":"mph"},{"uri":"/sensor/cc3_parking_brake_status","createdTimestamp":"1499884031000","tag":"cc3_parking_brake_status","unit":""},{"uri":"/sensor/cc3_gas_cap_status","createdTimestamp":"1499884031000","tag":"cc3_gas_cap_status","unit":""},{"uri":"/sensor/cc3_window_status","createdTimestamp":"1499884031000","tag":"cc3_window_status","unit":""},{"uri":"/sensor/cc3_engine_temperature","createdTimestamp":"1499884031000","tag":"cc3_engine_temperature","unit":"F"},{"uri":"/sensor/cc3_fuel_level","createdTimestamp":"1499884031000","tag":"cc3_fuel_level","unit":"%"},{"uri":"/sensor/cc3_tire_pressure_level","createdTimestamp":"1499884031000","tag":"cc3_tire_pressure_level","unit":"%"},{"uri":"/sensor/cc4_outside_temperature","createdTimestamp":"1499884031000","tag":"cc4_outside_temperature","unit":"F"},{"uri":"/sensor/cc4_speed","createdTimestamp":"1499884031000","tag":"cc4_speed","unit":"mph"},{"uri":"/sensor/cc4_parking_brake_status","createdTimestamp":"1499884031000","tag":"cc4_parking_brake_status","unit":""},{"uri":"/sensor/cc4_gas_cap_status","createdTimestamp":"1499884031000","tag":"cc4_gas_cap_status","unit":""},{"uri":"/sensor/cc4_window_status","createdTimestamp":"1499884031000","tag":"cc4_window_status","unit":""},{"uri":"/sensor/cc4_engine_temperature","createdTimestamp":"1499884031000","tag":"cc4_engine_temperature","unit":"F"},{"uri":"/sensor/cc4_fuel_level","createdTimestamp":"1499884031000","tag":"cc4_fuel_level","unit":"%"},{"uri":"/sensor/cc4_tire_pressure_level","createdTimestamp":"1499884031000","tag":"cc4_tire_pressure_level","unit":"%"},{"uri":"/sensor/cc5_outside_temperature","createdTimestamp":"1499884031000","tag":"cc5_outside_temperature","unit":"F"},{"uri":"/sensor/cc5_speed","createdTimestamp":"1499884031000","tag":"cc5_speed","unit":"mph"},{"uri":"/sensor/cc5_parking_brake_status","createdTimestamp":"1499884031000","tag":"cc5_parking_brake_status","unit":""},{"uri":"/sensor/cc5_gas_cap_status","createdTimestamp":"1499884031000","tag":"cc5_gas_cap_status","unit":""},{"uri":"/sensor/cc5_window_status","createdTimestamp":"1499884031000","tag":"cc5_window_status","unit":""},{"uri":"/sensor/cc5_engine_temperature","createdTimestamp":"1499884031000","tag":"cc5_engine_temperature","unit":"F"},{"uri":"/sensor/cc5_fuel_level","createdTimestamp":"1499884031000","tag":"cc5_fuel_level","unit":"%"},{"uri":"/sensor/cc5_tire_pressure_level","createdTimestamp":"1499884031000","tag":"cc5_tire_pressure_level","unit":"%"}]' || sadKitty
 
-	sleep 2
+	sleep 3
 	echo "Ingesting Location data..."
 	curl 'https://predix-asset.run.aws-usw02-pr.ice.predix.io/location' -X POST -H 'predix-zone-id: '$predix_asset_zone_id'' -H 'authorization: Bearer '$token'' -H 'content-type: application/json' --data-binary '[{"uri":"/location/sanramon","createdTimestamp":"1499884031000","city":"San Ramon","latitude":37.7799,"longitude":-121.978},{"uri":"/location/chicago","createdTimestamp":"1499884031000","city":"Chicago","latitude":41.8781,"longitude":-87.6298},{"uri":"/location/newyorkcity","createdTimestamp":"1499884031000","city":"New York City","latitude":40.7128,"longitude":-74.0059},{"uri":"/location/austin","createdTimestamp":"1499884031000","city":"Austin","latitude":30.2672,"longitude":-97.7431},{"uri":"/location/miami","createdTimestamp":"1499884031000","city":"Miami","latitude":25.7617,"longitude":-80.1918}]' || sadKitty
 
-	sleep 2
+	sleep 3
 	echo "Ingesting Fleet data..."
 	curl 'https://predix-asset.run.aws-usw02-pr.ice.predix.io/fleet' -X POST -H 'predix-zone-id: '$predix_asset_zone_id'' -H 'authorization: Bearer '$token'' -H 'content-type: application/json' --data-binary '[{"uri":"/fleet/usa_fleet","createdTimestamp":"1499884031000","connectedCars":[{"uri":"/connected_car/cc1","name":"Ford Fusion"},{"uri":"/connected_car/cc2","name":"Hyundai Sonata"},{"uri":"/connected_car/cc3","name":"Toyota Prius"},{"uri":"/connected_car/cc4","name":"Mercedes-Benz CLA"},{"uri":"/connected_car/cc5","name":"Chevrolet Camaro"}]}]' || sadKitty
 
@@ -260,8 +267,11 @@ UAA URI                    :  "$uaa_uri"
 UAA Admin Secret           :  admin_secret
 Client Name                :  "$clientname"
 Client Secret              :  secret
+Base64ClientCredential		 :	"$base64encoded"
 Asset Name                 :  "$assetname"
+Asset Zone Id							 :	"$predix_asset_zone_id"
 Timeseries Name            :  "$timeseriesname"
+Timeseries Zone Id				 :	"$timeseries_zone"
 Blobstore Name             :  "$blobstorename"
 App Admin User Name        :  app_admin
 App Admin User Password    :  APP_admin18
