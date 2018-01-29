@@ -23,7 +23,7 @@ main() {
 	createAsset
 	createTimeseries
 	createBlobstore
-  updateClient
+  	updateClient
 	createAssetModel
 	createUsers
 	createGroups
@@ -164,7 +164,6 @@ updateClient() {
 createAssetModel() {
 	client=$clientname:secret
 	auth=$(printf $client | base64)
-	#base64encoded=`echo -n $clientname:client_secret|base64`
 	sleep 10
 	token_uri=$uaa_uri/oauth/token
 	tokenJson=`curl "$token_uri" -H 'Pragma: no-cache' -H 'content-type: application/x-www-form-urlencoded' -H 'Cache-Control: no-cache' -H 'authorization: Basic '$auth'' --data 'client_id='$clientname'&grant_type=client_credentials'` || sadKitty
@@ -267,11 +266,11 @@ UAA URI                    :  "$uaa_uri"
 UAA Admin Secret           :  admin_secret
 Client Name                :  "$clientname"
 Client Secret              :  secret
-Base64ClientCredential		 :	"$base64encoded"
+Base64ClientCredential	   :  "$base64encoded"
 Asset Name                 :  "$assetname"
-Asset Zone Id							 :	"$predix_asset_zone_id"
+Asset Zone Id		   :  "$predix_asset_zone_id"
 Timeseries Name            :  "$timeseriesname"
-Timeseries Zone Id				 :	"$timeseries_zone"
+Timeseries Zone Id	   :  "$timeseries_zone"
 Blobstore Name             :  "$blobstorename"
 App Admin User Name        :  app_admin
 App Admin User Password    :  APP_admin18
