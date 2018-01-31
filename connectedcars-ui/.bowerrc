@@ -1,5 +1,3 @@
 {
-  "directory": "bower_components/",
-  "proxy": "http://gateway.ge.zscalertwo.net:18000",
-  "https-proxy": "http://gateway.ge.zscalertwo.net:18000"
+  "directory": "bower_components/"
 }
