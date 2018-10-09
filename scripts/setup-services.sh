@@ -54,23 +54,37 @@ verifyCommand()
   then
     echo "OK - $1"
   else
-    echoc r "$1 not found!"
-    echoc g "Please install: "
-    echoc g "\t CF - https://github.com/cloudfoundry/cli"
-    echoc g "\t UAAC -https://github.com/cloudfoundry/cf-uaac"
+    echo "$1 not found!"
+    echo -e "Please install: "
+    echo -e "\t CF   - https://github.com/cloudfoundry/cli"
+    echo -e "\t UAAC - https://github.com/cloudfoundry/cf-uaac"
     sadKitty
   fi
 }
 
 loginCf()
 {
-	read -p "Enter the Org name: " org_name
-	read -p "Enter the Space name: " space_name
-	read -p "Enter the Username: " user_name
-	read -s -p "Enter the Password: " user_password
+	#read -p "Enter the Org name: " org_name
+	#read -p "Enter the Space name: " space_name
+	#read -p "Enter the Username: " user_name
+	#read -s -p "Enter the Password: " user_password
 	echo -e "\n\nLogging into Cloud Foundry..."
-	cf login -a https://api.system.aws-usw02-pr.ice.predix.io -u $user_name -p $user_password -o $org_name -s $space_name || sadKitty
-   #cf login -a https://api.system.aws-usw02-pr.ice.predix.io -u student10 -p 'PrediX20!7' -o Predix-Training -s Training5 || sadKitty
+	cf login -a https://api.system.aws-usw02-pr.ice.predix.io
+	#cf login -a https://api.system.aws-usw02-pr.ice.predix.io -u $user_name -p $user_password -o $org_name -s $space_name || sadKitty
+	echo
+	echo "** Check the Org and Space below:"
+	cf target | grep -v '^api '
+	echo -n "Are these correct(y/n)? "
+	old_stty_cfg=$(stty -g)
+	stty raw -echo
+	answer=$( while ! head -c 1 | grep -i '[ny]' ;do true ;done )
+	stty $old_stty_cfg
+	if echo "$answer" | grep -ivq "^y" ;then
+		echo
+		echo "Please run this script again and enter the correct"
+		echo "login information from your instructor."
+    		exit 1
+	fi
 }
 
 deployingApp() {
