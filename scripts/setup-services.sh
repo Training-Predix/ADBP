@@ -90,6 +90,8 @@ loginCf()
 deployingApp() {
 	echo -e "\n"
 	read -p "Enter a prefix for the services name: " prefix
+	prefix=$(echo -n "${prefix}" | tr '[:upper:]' '[:lower:]')
+	prefix=$(echo -n "${prefix}" | tr ' \t' '_')
 	cd ../hello-predix/
 	app_name=$prefix-hello-predix
 	echo $app_name
