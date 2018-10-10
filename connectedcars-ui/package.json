@@ -24,7 +24,7 @@
     "express-session": "^1.14.1",
     "font-awesome": "^4.7.0",
     "google-map-react": "^0.29.0",
-    "https-proxy-agent": "^1.0.0",
+    "https-proxy-agent": "^2.2.0",
     "material-ui": "^0.20.0",
     "passport": "^0.3.2",
     "json-server": "^0.8.10",
