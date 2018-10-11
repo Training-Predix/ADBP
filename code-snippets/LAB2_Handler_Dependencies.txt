@@ -9,7 +9,7 @@
 	 <artifactId>hystrix-core</artifactId>
 	 <version>1.5.10</version>
  </dependency>
- 
+
  <!--  Eureka -->
 <dependency>
 	<groupId>org.springframework.cloud</groupId>

@@ -23,7 +23,7 @@ public class SwaggerConfig {
                 .build()
 				.apiInfo(metaData());
     }
-    
+
     private ApiInfo metaData() {
     	ApiInfo apiInfo = new ApiInfo(
     			"Connected Cars Simulator REST API",

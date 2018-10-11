@@ -5,7 +5,7 @@
 	<version>2.6.1</version>
 	<scope>compile</scope>
 </dependency>
-	
+
 <dependency>
 	<groupId>io.springfox</groupId>
 	<artifactId>springfox-swagger-ui</artifactId>
