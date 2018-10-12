@@ -12,6 +12,10 @@ class Map extends Component {
     const { markers } = this.props;
     return (
       <GoogleMapReact
+	bootstrapURLKeys={{
+    		key: "AIzaSyAahkeeCCcCZ-RfvnNQ-mV0MgolVHZYVBc",
+    		language: 'en',
+  	}}
         center={{ lat: 39.827792, lng: -98.579304 }}
         zoom={4}
         onChildClick={key => this.props.selected(key)}>
