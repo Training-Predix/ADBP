@@ -279,6 +279,7 @@ output()
 Hello Predix App Name      :  "$app_name"
 UAA Name                   :  "$uaaname"
 UAA URI                    :  "$uaa_uri"
+UAA Issuer ID              :  "${uaa_uri}/oauth/token"
 UAA Admin Secret           :  admin_secret
 Client Name                :  "$clientname"
 Client Secret              :  secret
