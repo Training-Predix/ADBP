@@ -157,7 +157,7 @@ createTimeseries() {
 	cf create-service predix-timeseries Free $timeseriesname -c '{"trustedIssuerIds":["'$uaa_uri'/oauth/token"]}' || sadKitty
 	echo ""
 	cf bs $app_name $timeseriesname || sadKitty
-	timeseries_zone=`cf env $app_name|grep zone-http-header-value|sed 'n;d'|sed s/\"zone-http-header-value\":\ // |sed s/\"//g |sed s/\,//g|sed 's/ //g'` || sadKitty
+	timeseries_zone=`cf env $app_name|grep zone-http-header-value| tail -n1 |sed s/\"zone-http-header-value\":\ // |sed s/\"//g |sed s/\,//g|sed 's/ //g'` || sadKitty
 }
 
 createBlobstore() {
