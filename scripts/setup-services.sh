@@ -55,9 +55,9 @@ verifyCommand()
     echo "OK - $1"
   else
     echo "$1 not found!"
-    echo -e "Please install: "
-    echo -e "\t CF   - https://github.com/cloudfoundry/cli"
-    echo -e "\t UAAC - https://github.com/cloudfoundry/cf-uaac"
+    echo "Please install: "
+    printf "\t%s\n" "CF   - https://github.com/cloudfoundry/cli"
+    printf "\t%s\n" "UAAC - https://github.com/cloudfoundry/cf-uaac"
     sadKitty
   fi
 }
@@ -68,13 +68,12 @@ loginCf()
 	#read -p "Enter the Space name: " space_name
 	#read -p "Enter the Username: " user_name
 	#read -s -p "Enter the Password: " user_password
-	echo -e "\n\nLogging into Cloud Foundry..."
-	cf login -a https://api.system.aws-usw02-pr.ice.predix.io
-	#cf login -a https://api.system.aws-usw02-pr.ice.predix.io -u $user_name -p $user_password -o $org_name -s $space_name || sadKitty
+	printf "\n\n%s\n" "Logging into Cloud Foundry..."
+	cf login -a https://api.system.aws-usw02-pr.ice.predix.io || sadKitty
 	echo
 	echo "** Check the Org and Space below:"
 	cf target | grep -v '^api '
-	echo -n "Are these correct(y/n)? "
+	printf "Are these correct(y/n)? "
 	old_stty_cfg=$(stty -g)
 	stty raw -echo
 	answer=$( while ! head -c 1 | grep -i '[ny]' ;do true ;done )
@@ -88,13 +87,13 @@ loginCf()
 }
 
 deployingApp() {
-	echo -e "\n"
+	echo ""
 	read -p "Enter a prefix for the services name: " prefix
-	prefix=$(echo -n "${prefix}" | tr '[:upper:]' '[:lower:]')
-	prefix=$(echo -n "${prefix}" | tr ' \t' '_')
+	prefix=$(printf "${prefix}" | tr '[:upper:]' '[:lower:]')
+	prefix=$(printf "${prefix}" | tr ' \t' '_')
 	cd ../hello-predix/
 	app_name=$prefix-hello-predix
-	echo $app_name
+	echo "$app_name"
 	cf push $app_name --random-route || sadKitty
 }
 
@@ -136,7 +135,7 @@ createClient() {
 	echo ""
 	clientname=$prefix-client
 	uaac client add $clientname -s secret --authorized_grant_types "authorization_code client_credentials password refresh_token" --autoapprove "openid scim.me" --authorities "clients.read clients.write scim.read scim.write" --redirect_uri "http://localhost:5000"
-	base64encoded=`echo -n $clientname:secret|base64`
+	base64encoded=`printf "$clientname:secret" |base64`
 }
 
 createAsset() {
