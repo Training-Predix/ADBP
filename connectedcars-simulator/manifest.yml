@@ -5,6 +5,11 @@ applications:
     memory: 512M
     disk_quota: 1G
     timeout: 180
-    
+
+# The SPRING_PROFILES_ACTIVE controls which .properties
+# file the application loads.  If this is not set, the
+# application loads the file 'application.properties'.
+# If set to "cloud", the application loads the file
+# 'application-cloud.properties'
 env:
     SPRING_PROFILES_ACTIVE : cloud
