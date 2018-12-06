@@ -1,13 +1,13 @@
 {
   "development": {
-    "uaaURL": "{The UAA URI}",
-    "base64ClientCredential": "{Get clientID:clientSecret for services then base64 encode and place it here}",
-    "loginBase64ClientCredential": "{Get clientID:clientSecret for services then base64 encode and place it here}",
+    "uaaURL": "{ UAA URI }",
+    "base64ClientCredential": "{ Base64Client Crediential }",
+    "loginBase64ClientCredential": "{ Base64Client Crediential }",
     "appURL": "http://localhost:5000",
     "timeseriesURL": "https://time-series-store-predix.run.aws-usw02-pr.ice.predix.io/v1/datapoints",
-    "timeseriesZoneId": "{The Zone ID for the Timeseries Service Created}",
+    "timeseriesZoneId": "{ Timeseries Zone ID }",
     "assetURL": "https://predix-asset.run.aws-usw02-pr.ice.predix.io",
-    "assetZoneId": "{The Zone ID for the Asset Service Created}",
-    "simulatorURL": "https://connectedcars-simulator.run.aws-usw02-pr.ice.predix.io"
+    "assetZoneId": "{ Asset Zone ID }",
+    "simulatorURL": "{ CC Simulator URL }"
   }
 }
