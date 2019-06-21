@@ -153,7 +153,7 @@ createTimeseries() {
 	echo ""
 	echo "Creating Timeseries service..."
 	timeseriesname=$prefix-timeseries
-	cf create-service predix-timeseries Free $timeseriesname -c '{"trustedIssuerIds":["'$uaa_uri'/oauth/token"]}' || sadKitty
+	cf create-service predix-timeseries Tiered $timeseriesname -c '{"trustedIssuerIds":["'$uaa_uri'/oauth/token"]}' || sadKitty
 	echo ""
 	cf bs $app_name $timeseriesname || sadKitty
 	timeseries_zone=`cf env $app_name|grep zone-http-header-value| tail -n1 |sed s/\"zone-http-header-value\":\ // |sed s/\"//g |sed s/\,//g|sed 's/ //g'` || sadKitty
